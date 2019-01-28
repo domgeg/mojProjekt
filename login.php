@@ -1,29 +1,33 @@
 ﻿<?php
 include("db.php");
 session_start();
-   
+
    if($_SERVER["REQUEST_METHOD"] == "POST") {
-      // username and password sent from form 
       
       $username = mysqli_real_escape_string($conn,$_POST['username']);
       $password = mysqli_real_escape_string($conn,$_POST['password']); 
-      
-      $sql = "SELECT id FROM korisnici WHERE username = '$username' and password = '$password'";
+      if(!empty($username)&&!empty($password)){
+      $sql = "SELECT tip_korisnika, naziv FROM korisnici WHERE username = '$username' and password = '$password'";
       $result = mysqli_query($conn,$sql);
-      $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
-      //$active = $row['active'];
       
-      $count = mysqli_num_rows($result);
-      
-      // If result matched $myusername and $mypassword, table row must be 1 row
-		
-      if($count == 1) {
+      if(mysqli_num_rows($result)==0) 
+      {
+          echo "ne postoji";
+      }else{
          //session_register("myusername");
-         $_SESSION['login_user'] = $username;
-         
-         header("location: welcome.php");
+         list($tip,$ime)=mysqli_fetch_array($result);
+            $_SESSION['tip_korisnika']=$tip;
+            $_SESSION['naziv']=$ime;
+      }          
+        echo $ime;
+         //header("location: welcome.php");
+              
+      }else{
+         echo "ne postoji";
       }
+
    }
+   
 
 
 
@@ -43,7 +47,7 @@ session_start();
 
 <div class ="container">
 	<div class="col-xs-6">
-		<form method="post">
+		<form action="login.php" method="post">
 			<div class = "form-group">
 				<label>Unesite korisničko ime:</label>
 				<input type="text" name="username" class="form-control">

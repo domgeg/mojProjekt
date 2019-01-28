@@ -1,5 +1,8 @@
 <?php 
+include("db.php");
+//include("login.php");
+session_start();
 
-echo "uspješno si se ulogirao :)";
+echo $_SESSION['naziv'];
 
 ?>
