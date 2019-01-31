@@ -7,10 +7,10 @@
 
 
 	$conn = mysqli_connect($localhost,$username,$password,$baza);
-	if($conn){
-	echo "spojeno";
-	}else{
-	echo "nije spojeno";
+  mysqli_set_charset($conn,"utf8");
+
+	if(!$conn){
+	  echo "nije spojeno";
 	}
 	
 

@@ -4,27 +4,28 @@ session_start();
 
    if($_SERVER["REQUEST_METHOD"] == "POST") {
       
-      $username = mysqli_real_escape_string($conn,$_POST['username']);
-      $password = mysqli_real_escape_string($conn,$_POST['password']); 
-      if(!empty($username)&&!empty($password)){
-      $sql = "SELECT tip_korisnika, naziv FROM korisnici WHERE username = '$username' and password = '$password'";
-      $result = mysqli_query($conn,$sql);
+		  $username = mysqli_real_escape_string($conn,$_POST['username']);
+		  $password = mysqli_real_escape_string($conn,$_POST['password']); 
+		  if(!empty($username)&&!empty($password)){
+			  $sql = "SELECT tip_korisnika, naziv FROM korisnici WHERE username = '$username' and password = '$password'";
+			  $result = mysqli_query($conn,$sql);
       
-      if(mysqli_num_rows($result)==0) 
-      {
-          echo "ne postoji";
-      }else{
-         //session_register("myusername");
-         list($tip,$ime)=mysqli_fetch_array($result);
-            $_SESSION['tip_korisnika']=$tip;
-            $_SESSION['naziv']=$ime;
-      }          
-        echo $ime;
-         //header("location: welcome.php");
+			  if(mysqli_num_rows($result)==0) 
+			  {
+				  echo "ne postoji";
+			  }else{
+				 //session_register("myusername");
+				 list($tip,$ime)=mysqli_fetch_array($result);
+					$_SESSION['tip_korisnika']=$tip;
+					$_SESSION['naziv']=$ime;
+			  }          
+				//echo $ime;
+				 header("location: index.php");
               
-      }else{
-         echo "ne postoji";
-      }
+			  }
+		else{
+			 echo "ne postoji";
+	 	}
 
    }
    

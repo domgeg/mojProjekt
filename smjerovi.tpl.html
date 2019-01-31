@@ -1,0 +1,23 @@
+<div class ="container">
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Smjer</th>
+      <th scope="col">Detalji</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+		<?php while($row = mysqli_fetch_assoc($query)):?>
+        
+		<?php 
+		$smjer=$row["naziv"];
+        $id	  =$row["id"];
+        ?>
+      <td><?php echo $smjer; ?></td>
+      <td><button type="button" class="btn btn-info">Detalji</button></td>
+    </tr>
+  </tbody>
+	<?php endwhile ?>
+</table>
+</div>
