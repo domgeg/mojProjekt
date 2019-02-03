@@ -1,9 +1,20 @@
 <div class ="container">
 <table class="table table-striped">
   <thead>
+    <hr>
+    <form method="post">
+        <?php if($_SESSION['tip_korisnika'] == 1): ?>
+        <input type="submit" class="btn btn-success" name="noviSmjer" value="Kreiraj novi smjer" /> </br></br>
+        <input type="submit" class="btn btn-primary" name="noviPredmet" value="Kreiraj novi predmet" />
+        <?php endif ?>
+        </br>
+    </form>
     <tr>
       <th scope="col">Smjer</th>
-      <th scope="col">Detalji</th>
+      <?php if($_SESSION['tip_korisnika'] == 1): ?>
+      <!--- <th scope="col">Detalji</th> -->
+      <?php endif ?>
+
     </tr>
   </thead>
   <tbody>
@@ -15,7 +26,9 @@
         $id	  =$row["id"];
         ?>
       <td><?php echo $smjer; ?></td>
-      <td><button type="button" class="btn btn-info">Detalji</button></td>
+      <?php if($_SESSION['tip_korisnika'] == 1): ?>
+      <!-- <td><button type="button" class="btn btn-info">Detalji</button></td> -->
+      <?php endif ?>
     </tr>
   </tbody>
 	<?php endwhile ?>

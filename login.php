@@ -7,7 +7,7 @@ session_start();
 		  $username = mysqli_real_escape_string($conn,$_POST['username']);
 		  $password = mysqli_real_escape_string($conn,$_POST['password']); 
 		  if(!empty($username)&&!empty($password)){
-			  $sql = "SELECT tip_korisnika, naziv FROM korisnici WHERE username = '$username' and password = '$password'";
+			  $sql = "SELECT id, tip_korisnika, ime_korisnika FROM korisnici WHERE username = '$username' && password = '$password'";
 			  $result = mysqli_query($conn,$sql);
       
 			  if(mysqli_num_rows($result)==0) 
@@ -15,12 +15,13 @@ session_start();
 				  echo "ne postoji";
 			  }else{
 				 //session_register("myusername");
-				 list($tip,$ime)=mysqli_fetch_array($result);
+				 list($id,$tip,$ime)=mysqli_fetch_array($result);
+					$_SESSION['id']=$id;
 					$_SESSION['tip_korisnika']=$tip;
-					$_SESSION['naziv']=$ime;
-			  }          
-				//echo $ime;
+					$_SESSION['ime_korisnika']=$ime;
+
 				 header("location: index.php");
+			  }          
               
 			  }
 		else{
