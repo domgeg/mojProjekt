@@ -1,0 +1,18 @@
+<div class="container">
+    <form method="post">
+        <label>Odaberite korisnika:</label>
+        <select name="korisnik">
+            <?php while($row = mysqli_fetch_assoc($upitKorisnici)): ?>
+
+            <?php
+            $id	  =$row["id"];
+            $naziv=$row["ime_korisnika"];
+            ?>
+            <option value="<?php echo $id; ?>"> <?php echo $naziv; ?> </option>
+
+            <?php endwhile; ?>
+        </select>
+        </br></br>
+        <input type="submit" name="PDF" value="Generiraj PDF" class="btn btn-success" />
+    </form>
+</div>

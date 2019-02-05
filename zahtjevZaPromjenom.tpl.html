@@ -1,0 +1,31 @@
+<div class="container">
+    <table class="table table-striped">
+        <thead>
+            <hr>
+            <tr>
+                <th scope="col">Student</th>
+                <th scope="col">Smjer</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <?php while($row = mysqli_fetch_assoc($upit)):?>
+
+                <?php
+                $student=$row["ime_korisnika"];
+                $smjer  =$row["naziv"];
+                ?>
+                <td><?php echo $student; ?></td>
+                <td><?php echo $smjer; ?></td>
+				<td>
+                    <form method="post">
+                        <input type="submit" name="prihvati" class="btn btn-primary" value="Prihvati">
+                        <input type="submit" name="odbaci" class="btn btn-danger" value="Odbaci">
+                    </form>
+				<td>
+            </tr>
+        </tbody>
+                <?php endwhile ?>
+    </table>
+</div>
