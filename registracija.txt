@@ -1,0 +1,61 @@
+<?php 
+include("db.php");
+
+
+$smjer= "select id, naziv from smjerovi";
+$rezultat = mysqli_query($conn,$smjer);
+
+$godina="select id, godina from skolska_godina";
+$upitGodina=mysqli_query($conn, $godina);
+
+
+
+If(isset($_POST['registracija'])){
+
+
+	$ime		       = $_POST['ime'];
+	$datumRodenja  = $_POST['datumRodenja'];
+	$adresa		     = $_POST['adresa'];
+	$telefon	     = $_POST['telefon'];
+	$korisnickoIme = $_POST['korisnickoIme'];
+	$password	     = $_POST['password'];
+  $slika  	     = $_POST['slika'];
+  $smjer         = $_POST['smjerovi'];
+  $godina        = $_POST['godine'];
+  $slikaPutanja  = 'slike/'.$slika;
+
+	$insert = "Insert into korisnici (tip_korisnika, ime_korisnika, datum_rođenja, adresa, telefon, username, password, slika)  
+             values ('2','$ime', '$datumRodenja', '$adresa', '$telefon', '$korisnickoIme', '$password', '$slikaPutanja')";
+	$sql    = mysqli_query($conn, $insert);
+  
+  $selectId = "select id from korisnici where ime_korisnika = '$ime' 
+               and datum_rođenja = '$datumRodenja' 
+               and adresa        = '$adresa' 
+               and telefon       = 'telefon'
+               and username      = '$korisnickoIme'
+               and password      = '$password'";
+  $sqlId   = mysqli_query($conn, $selectId);
+  
+  
+  $insertZahtjev = "insert into zahtjevzaupisom (korisnik_id, skolskaGodina, smjer_id) values(
+                      (select id from korisnici where ime_korisnika = '$ime'
+                        and datum_rođenja = '$datumRodenja' 
+                        and adresa        = '$adresa' 
+                        and telefon       = '$telefon'
+                        and username      = '$korisnickoIme'
+                        and password      = '$password'),
+                      '$godina',
+                      '$smjer')";
+  $sqlInsert     = mysqli_query($conn, $insertZahtjev); 
+ 
+  header("location: login.php");
+}
+
+
+
+
+include("registracija.tpl.html");
+
+
+
+?>

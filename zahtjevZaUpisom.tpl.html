@@ -17,19 +17,19 @@
                 $korisnikId = $row["korisnik_id"];
                 $student=$row["ime_korisnika"];
                 $smjer  =$row["naziv"];
-                $smjerID= $row["zeljeni_smjer"];
-                
+                $smjerID= $row["smjer_id"];
+
                 ?>
                 <td><?php echo $student; ?></td>
                 <td><?php echo $smjer; ?></td>
-				<td>
-                    <form method="post" action="zahtjevZaPromjenom.php?kor_id=<?php echo $korisnikId;?>&sm_id=<?php echo $smjerID;?>&zh_id=<?php echo $zahtjevId;?>">
-                        <input type="submit" name="prihvati" class="btn btn-primary" value="Prihvati">
-                        <input type="submit" name="odbaci"   class="btn btn-danger"  value="Odbaci">
+                <td>
+                    <form method="post" action="zahtjevZaUpisom.php?kor_id=<?php echo $korisnikId;?>&sm_id=<?php echo $smjerID;?>&zh_id=<?php echo $zahtjevId;?>">
+                        <input type="submit" name="Upisi" class="btn btn-primary" value="Prihvati">
+                        <input type="submit" name="Obrisi" class="btn btn-danger" value="Odbaci">
                     </form>
-				<td>
+                <td>
             </tr>
         </tbody>
-                <?php endwhile ?>
+        <?php endwhile ?>
     </table>
 </div>

@@ -1,7 +1,7 @@
 ﻿<?php 
 include ("header.php");
 $id=$_SESSION['id'];
-$sql = "SELECT korisnici.ime_korisnika,korisnici.datum_rođenja,korisnici.adresa,korisnici.telefon, smjerovi.naziv 
+$sql = "SELECT korisnici.ime_korisnika,korisnici.datum_rođenja,korisnici.adresa,korisnici.telefon, korisnici.slika, smjerovi.naziv, zahtjevzaupisom.status 
 		   FROM korisnici 
 			  inner join zahtjevzaupisom on korisnici.id = zahtjevzaupisom.korisnik_id 
 			  inner join smjerovi ON smjerovi.id = zahtjevzaupisom.smjer_id

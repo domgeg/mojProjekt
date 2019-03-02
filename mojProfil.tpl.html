@@ -2,11 +2,13 @@
     <table class="table table-striped">
         <thead>
             <tr>
+                <th scope="col">Slika        </th>
                 <th scope="col">Ime i prezime</th>
                 <th scope="col">Datum rođenja</th>
-                <th scope="col">Adresa</th>
-                <th scope="col">Telefon</th>
-                <th scope="col">Smjer</th>
+                <th scope="col">Adresa       </th>
+                <th scope="col">Telefon      </th>
+                <th scope="col">Smjer        </th>
+                
 
                 
 
@@ -14,32 +16,47 @@
         </thead>
         <tbody>
             <tr>
-                <?php while($row = mysqli_fetch_assoc($result)):?>
+        <?php while($row = mysqli_fetch_assoc($result)):?>
 
                 <?php
+                $slika     =$row["slika"];
                 $imePrezime=$row["ime_korisnika"];
                 $datum     =$row["datum_rođenja"];
                 $adresa    =$row["adresa"];
                 $telefon   =$row["telefon"];
-				$smjer	   =$row["naziv"]
+				$smjer	   =$row["naziv"];
+                $status    =$row["status"];
 
                 ?>
+                <?php if($slika == null): ?>
+                <td>
+                    <img class="img-responsive" width="80" height="80" src="<?php echo 'slike/default.png'; ?>">
+                </td>
+                <?php endif ?>
+
+                <?php if($slika != null): ?>
+                <td>
+                    <img class="img-responsive" width="80" height="80" src="<?php echo 'slike/" $slika"'; ?>">
+                </td>
+                <?php endif ?>
                 <td><?php echo $imePrezime; ?></td>
                 <td><?php echo $datum;      ?></td>
                 <td><?php echo $adresa;     ?></td>
                 <td><?php echo $telefon;    ?></td>
 				<td><?php echo $smjer;		?></td>
+                
             </tr>
         </tbody>
-        <?php endwhile ?>
  
     </table>
     <hr />
+        <?php if($row["status"] != "Promijenjen"): ?>
+
     <h5>Pošaljite zahtjev za promjenu smjera:</h5>
     <form method="post">
         <label>Odaberite željeni smjer:</label>
         <select name="smjerovi">
-            <?php while($row = mysqli_fetch_assoc($rezultat)): ?>
+        <?php while($row = mysqli_fetch_assoc($rezultat)): ?>
 
             <?php
             $id	  =$row["id"];
@@ -47,10 +64,12 @@
             ?>
             <option value="<?php echo $id; ?>"> <?php echo $naziv; ?> </option>
 
-            <?php endwhile; ?>
+        <?php endwhile; ?>
         </select>
         </br></br>
         <input type="submit" name="promjenaSmjera" value="Pošalji zahtjev" class="btn btn-success" />
     </form>
+        <?php endif ?>
+        <?php endwhile ?>
 </div>
 
