@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.4
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 28, 2019 at 06:03 PM
+-- Generation Time: Mar 02, 2019 at 03:52 PM
 -- Server version: 10.1.37-MariaDB
--- PHP Version: 7.3.0
+-- PHP Version: 7.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -31,26 +31,26 @@ SET time_zone = "+00:00";
 CREATE TABLE `korisnici` (
   `id` int(255) NOT NULL,
   `tip_korisnika` int(1) DEFAULT NULL,
-  `naziv` varchar(255) NOT NULL,
+  `ime_korisnika` varchar(255) COLLATE utf8_croatian_ci DEFAULT NULL,
   `datum_rođenja` date DEFAULT NULL,
-  `adresa` varchar(255) DEFAULT NULL,
-  `telefon` varchar(15) DEFAULT NULL,
-  `username` varchar(20) NOT NULL,
-  `password` varchar(20) NOT NULL,
-  `PDF` blob
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `adresa` varchar(255) COLLATE utf8_croatian_ci DEFAULT NULL,
+  `telefon` varchar(15) COLLATE utf8_croatian_ci DEFAULT NULL,
+  `username` varchar(20) COLLATE utf8_croatian_ci NOT NULL,
+  `password` varchar(20) COLLATE utf8_croatian_ci NOT NULL,
+  `PDF` blob,
+  `slika` varchar(200) COLLATE utf8_croatian_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_croatian_ci;
 
 --
 -- Dumping data for table `korisnici`
 --
 
-INSERT INTO `korisnici` (`id`, `tip_korisnika`, `naziv`, `datum_rođenja`, `adresa`, `telefon`, `username`, `password`, `PDF`) VALUES
-(1, 1, 'Admin', NULL, NULL, NULL, 'admin', 'admin', NULL),
-(2, 2, 'Dominik Gegi?', '1992-02-25', 'Dalmatinska 21 Gradi?i, Velika Gorica', '097/7530-848', 'dgegic', 'gegic123', NULL),
-(3, 2, 'Damir Novak', '1992-06-17', 'Ulica bra?e Radi?a 4 Samobor', '095/7870-848', 'dnovak', 'novak123', NULL),
-(4, 2, 'Mirna Bošnjak', '1992-12-25', 'Praška 13 Zagreb', '097/6250-848', 'mbosnjak', 'bosnjak123', NULL),
-(5, 2, 'Marica Šulenti?', '1991-08-31', 'Josipa bana Jela?i?a 21 Velika Gorica', '099/7554-878', 'msulentic', 'sulentic123', NULL),
-(6, 2, 'Meri Gvardijan', '1995-12-27', 'Miramarska ulica 3 Zapreši?', '091/9874-848', 'mgvardijan', 'gvardijan123', NULL);
+INSERT INTO `korisnici` (`id`, `tip_korisnika`, `ime_korisnika`, `datum_rođenja`, `adresa`, `telefon`, `username`, `password`, `PDF`, `slika`) VALUES
+(79, 1, 'Admin', NULL, NULL, NULL, 'admin', 'admin', NULL, NULL),
+(112, 2, 'Hvala Ti', '1922-10-10', 'dalmatinska 21', '65465165', 'proba', 'proba', 0x47656e65726972616e6f, '/korisnicislika.jpg'),
+(115, 2, 'Željko Matičević', '1992-02-25', 'Ulica grada Đakova', '098988587', 'test', 'test', NULL, '/korisnicislika3.jpg'),
+(117, 2, 'Đorđe Novković', '2000-10-10', 'dalmatinska 21', '032658', 'test2', 'test2', NULL, NULL),
+(118, 2, 'Dominik ana', '2011-02-22', 'Ulica grada Đakova', '65765765', 'vjezba', 'vjezba', NULL, '/korisniciprofPic.jpg');
 
 -- --------------------------------------------------------
 
@@ -61,8 +61,8 @@ INSERT INTO `korisnici` (`id`, `tip_korisnika`, `naziv`, `datum_rođenja`, `adre
 CREATE TABLE `predmet` (
   `id` int(255) NOT NULL,
   `smjer_id` int(255) DEFAULT NULL,
-  `naziv` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `naziv` varchar(255) COLLATE utf8_croatian_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_croatian_ci;
 
 --
 -- Dumping data for table `predmet`
@@ -74,25 +74,19 @@ INSERT INTO `predmet` (`id`, `smjer_id`, `naziv`) VALUES
 (3, 1, 'Programiranje'),
 (4, 1, 'Engleski jezik'),
 (5, 1, 'Matematika 2'),
-(6, 2, 'Matematika'),
 (7, 2, 'Fizika'),
 (8, 2, 'Termodinamika'),
 (9, 2, 'Njema?ki jezik'),
 (10, 3, 'Mreže'),
-(11, 3, 'Matematika'),
 (12, 3, 'Tjelesni i zdravstvena kultura'),
 (13, 3, 'Protokoli'),
 (14, 3, 'Engleski jezik'),
-(15, 4, 'Matematika'),
 (16, 4, 'Engleski jezik'),
 (17, 4, 'Fizika'),
 (18, 4, 'Tjelesni i zdravstvena kultura'),
 (19, 4, 'Sigurnost informacijskih sustava'),
-(20, 5, 'Matematika'),
 (21, 5, 'Programiranje'),
-(22, 5, 'Fizika'),
-(23, 5, 'Aerodinamika'),
-(24, 5, 'Elekrotehnika');
+(22, 5, 'Fizika');
 
 -- --------------------------------------------------------
 
@@ -102,8 +96,8 @@ INSERT INTO `predmet` (`id`, `smjer_id`, `naziv`) VALUES
 
 CREATE TABLE `skolska_godina` (
   `id` int(255) NOT NULL,
-  `godina` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `godina` varchar(255) COLLATE utf8_croatian_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_croatian_ci;
 
 --
 -- Dumping data for table `skolska_godina`
@@ -122,19 +116,20 @@ INSERT INTO `skolska_godina` (`id`, `godina`) VALUES
 
 CREATE TABLE `smjerovi` (
   `id` int(255) NOT NULL,
-  `naziv` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `naziv` varchar(255) COLLATE utf8_croatian_ci NOT NULL,
+  `smjerId` varchar(255) COLLATE utf8_croatian_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_croatian_ci;
 
 --
 -- Dumping data for table `smjerovi`
 --
 
-INSERT INTO `smjerovi` (`id`, `naziv`) VALUES
-(1, 'Programiranje'),
-(2, 'Mehatronika'),
-(3, 'Mreže'),
-(4, 'Sistem inžinjerstvo'),
-(5, 'Robotika');
+INSERT INTO `smjerovi` (`id`, `naziv`, `smjerId`) VALUES
+(1, 'Programiranje', '1'),
+(2, 'Mehatronika', '2'),
+(3, 'Mreže', '3'),
+(4, 'Sistem inžinjerstvo', '4'),
+(5, 'Robotika', '5');
 
 -- --------------------------------------------------------
 
@@ -147,15 +142,7 @@ CREATE TABLE `zahtjevzapromjenomsmjera` (
   `korisnik_id` int(255) DEFAULT NULL,
   `upis_id` int(255) DEFAULT NULL,
   `zeljeni_smjer` int(155) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `zahtjevzapromjenomsmjera`
---
-
-INSERT INTO `zahtjevzapromjenomsmjera` (`id`, `korisnik_id`, `upis_id`, `zeljeni_smjer`) VALUES
-(1, 4, 1, 3),
-(2, 3, 2, 5);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_croatian_ci;
 
 -- --------------------------------------------------------
 
@@ -168,16 +155,21 @@ CREATE TABLE `zahtjevzaupisom` (
   `korisnik_id` int(255) DEFAULT NULL,
   `skolskaGodina` int(255) DEFAULT NULL,
   `smjer_id` int(255) DEFAULT NULL,
-  `status` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `status` varchar(255) COLLATE utf8_croatian_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_croatian_ci;
 
 --
 -- Dumping data for table `zahtjevzaupisom`
 --
 
 INSERT INTO `zahtjevzaupisom` (`id`, `korisnik_id`, `skolskaGodina`, `smjer_id`, `status`) VALUES
-(1, 3, 2, 1, 'Upisan'),
-(2, 4, 2, 2, 'Upisan');
+(130, 112, 1, 1, 'Upisan'),
+(131, NULL, 1, 1, NULL),
+(132, 115, 3, 4, NULL),
+(133, NULL, 1, 1, NULL),
+(134, NULL, 1, 1, NULL),
+(135, 117, 1, 3, 'Promijenjen'),
+(136, 118, 1, 1, NULL);
 
 --
 -- Indexes for dumped tables
@@ -236,13 +228,13 @@ ALTER TABLE `zahtjevzaupisom`
 -- AUTO_INCREMENT for table `korisnici`
 --
 ALTER TABLE `korisnici`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=119;
 
 --
 -- AUTO_INCREMENT for table `predmet`
 --
 ALTER TABLE `predmet`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `skolska_godina`
@@ -260,13 +252,13 @@ ALTER TABLE `smjerovi`
 -- AUTO_INCREMENT for table `zahtjevzapromjenomsmjera`
 --
 ALTER TABLE `zahtjevzapromjenomsmjera`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `zahtjevzaupisom`
 --
 ALTER TABLE `zahtjevzaupisom`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=137;
 
 --
 -- Constraints for dumped tables

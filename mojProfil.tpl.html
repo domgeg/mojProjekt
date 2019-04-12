@@ -30,13 +30,13 @@
                 ?>
                 <?php if($slika == null): ?>
                 <td>
-                    <img class="img-responsive" width="80" height="80" src="<?php echo 'slike/default.png'; ?>">
+                    <img class="img-responsive" width="80" height="80" src="<?php echo 'korisnici/default.jpg'; ?>">
                 </td>
                 <?php endif ?>
 
                 <?php if($slika != null): ?>
                 <td>
-                    <img class="img-responsive" width="80" height="80" src="<?php echo 'slike/" $slika"'; ?>">
+                    <img class="img-responsive" width="80" height="80" src="<?php echo "korisnici/" . $slika; ?>">
                 </td>
                 <?php endif ?>
                 <td><?php echo $imePrezime; ?></td>
